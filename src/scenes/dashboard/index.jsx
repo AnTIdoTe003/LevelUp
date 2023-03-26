@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockDietMonday } from "../../data/mockData";
+import { mockDiet } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
@@ -9,6 +9,9 @@ const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [buttonValue, setButtonValue] = useState("Monday")
+  const handleOnclick = (btnvalue)=>{
+        setButtonValue(btnvalue)
+  }
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -52,7 +55,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="You are "
+            title="You are 50% "
             subtitle="close to your goal"
             progress="0.50"
           />
@@ -116,8 +119,12 @@ const Dashboard = () => {
               Your Prescribed Diet
             </Typography>
           </Box>
-          {mockDietMonday.map((diet, i) => (
-            <Box
+          {
+          mockDiet.filter((data)=>{
+            return buttonValue === data.id
+          }).map((diet, i)=>{
+            return(
+              <Box
               key={`${diet.txId}-${i}`}
               display="flex"
               justifyContent="space-between"
@@ -144,23 +151,26 @@ const Dashboard = () => {
                 borderRadius="4px"
                 width="6rem"
                 height="auto"
+                color="black"
               >
-                ${diet.cost}
+                {diet.cost}
               </Box>
             </Box>
-          ))}
+           )
+          })
+         }
         </Box>
         <Box
          gridColumn="span 4"
         >
           <Box display="flex" gap="20px">
-            <Button onClick={()=>{setButtonValue("Monday")}} size="large" variant="outlined" color="secondary">Monday</Button>
-             <Button onClick={()=>{setButtonValue("Tuesday")}} size="large" variant="outlined" color="secondary">Tuesday</Button>
-              <Button onClick={()=>{setButtonValue("Wednesday")}}  size="large" variant="outlined" color="secondary">Wednesday</Button>
-               <Button  onClick={()=>{setButtonValue("Thursday")}} size="large" variant="outlined" color="secondary">Thursday</Button>
-                <Button  onClick={()=>{setButtonValue("Friday")}} size="large" variant="outlined" color="secondary">Friday</Button>
-                 <Button  onClick={()=>{setButtonValue("Saturday")}} size="large" variant="outlined" color="secondary">Saturday</Button>
-                  <Button  onClick={()=>{setButtonValue("Sunday")}} size="large" variant="outlined" color="secondary">Sunday</Button>
+            <Button onClick={()=>handleOnclick("Monday")} size="large" variant="outlined" color="secondary">Monday</Button>
+             <Button onClick={()=>handleOnclick("Tuesday")} size="large" variant="outlined" color="secondary">Tuesday</Button>
+              <Button onClick={()=>handleOnclick("Wednesday")}  size="large" variant="outlined" color="secondary">Wednesday</Button>
+               <Button  onClick={()=>handleOnclick("Thursday")} size="large" variant="outlined" color="secondary">Thursday</Button>
+                <Button  onClick={()=>handleOnclick("Friday")} size="large" variant="outlined" color="secondary">Friday</Button>
+                 <Button  onClick={()=>handleOnclick("Saturday")} size="large" variant="outlined" color="secondary">Saturday</Button>
+                  <Button  onClick={()=>handleOnclick("Sunday")} size="large" variant="outlined" color="secondary">Sunday</Button>
           </Box>
             
         </Box>
