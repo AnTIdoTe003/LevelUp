@@ -1,4 +1,5 @@
 import { Typography, Box, useTheme } from "@mui/material";
+// import { color } from "@mui/system";
 import { tokens } from "../theme";
 
 const Header = ({ title, subtitle }) => {
@@ -12,10 +13,10 @@ const Header = ({ title, subtitle }) => {
         fontWeight="bold"
         sx={{ m: "0 0 5px 0" }}
       >
-        {title}
+        level<span style={{color:"yellow"}}>Up</span> Calorie Tracker
       </Typography>
       <Typography variant="h5" color={colors.greenAccent[400]}>
-        {subtitle}
+        Your graph as follows
       </Typography>
     </Box>
   );
